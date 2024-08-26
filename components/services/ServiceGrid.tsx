@@ -6,12 +6,12 @@ interface Service {
 }
 
 const services: Service[] = [
-  { title: 'Treatments', imageUrl: '/images/treatments.jpg' },
-  { title: 'Styling', imageUrl: '/images/styling.jpg' },
-  { title: 'Nail Services', imageUrl: '/images/nail-services.jpg' },
-  { title: 'Hair Extensions', imageUrl: '/images/hair-extensions.jpg' },
-  { title: 'Hair Cuts', imageUrl: '/images/hair-cuts.jpg' },
-  { title: 'Professional Colouring', imageUrl: '/images/professional-colouring.jpg' },
+  { title: 'Treatments', imageUrl: '/images/service1.webp' },
+  { title: 'Styling', imageUrl: '/images/service2.webp' },
+  { title: 'Nail Services', imageUrl: '/images/service3.webp' },
+  { title: 'Hair Extensions', imageUrl: '/images/service4.webp' },
+  { title: 'Hair Cuts', imageUrl: '/images/service5.webp' },
+  { title: 'Professional Colouring', imageUrl: '/images/service6.webp' },
 ];
 
 const ServiceGrid: React.FC = () => {

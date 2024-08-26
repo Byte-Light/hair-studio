@@ -2,11 +2,19 @@
 import React, { useState } from 'react';
 import { FaInstagram, FaFacebookF } from 'react-icons/fa';
 import { FaScissors } from "react-icons/fa6";
-
 import Link from 'next/link';
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const menuItems = [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'About Us', href: '/about-us' },
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'Price List', href: '/price-list' },
+    { name: 'Contact Us', href: '/contact-us' },
+  ];
 
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
@@ -18,9 +26,9 @@ const Navbar: React.FC = () => {
         </div>
       </div>
       <nav className="hidden md:flex space-x-8 text-sm font-semibold">
-        {['Home', 'Services', 'About Us', 'Gallery', 'Price List', 'Contact Us'].map((item, index) => (
-          <Link key={index} href={`/${item.toLowerCase().replace(' ', '-')}`} className="hover:underline">
-            {item}
+        {menuItems.map((item, index) => (
+          <Link key={index} href={item.href} className="hover:underline">
+            {item.name}
           </Link>
         ))}
       </nav>
@@ -41,9 +49,9 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center space-y-4 py-4">
-          {['Home', 'Services', 'About Us', 'Gallery', 'Price List', 'Contact Us'].map((item, index) => (
-            <Link key={index} href={`/${item.toLowerCase().replace(' ', '-')}`} className="text-sm font-semibold hover:underline">
-              {item}
+          {menuItems.map((item, index) => (
+            <Link key={index} href={item.href} className="text-sm font-semibold hover:underline">
+              {item.name}
             </Link>
           ))}
         </div>
