@@ -7,22 +7,22 @@ const Hero: React.FC = () => {
       {/* Background images */}
       <div className="absolute inset-0 flex">
         <div className="w-1/6 h-full relative">
-          <Image src="/image1.jpg" alt="Model 1" layout="fill" objectFit="cover" className="opacity-70" />
+          <Image src="/images/hero1.webp" alt="Model 1" layout="fill" objectFit="cover" className="opacity-70" />
         </div>
         <div className="w-1/6 h-full relative">
-          <Image src="/image2.jpg" alt="Model 2" layout="fill" objectFit="cover" className="opacity-70" />
+          <Image src="/images/hero2.webp" alt="Model 2" layout="fill" objectFit="cover" className="opacity-70" />
         </div>
         <div className="w-1/6 h-full relative">
-          <Image src="/image3.jpg" alt="Model 3" layout="fill" objectFit="cover" className="opacity-70" />
+          <Image src="/images/hero3.webp" alt="Model 3" layout="fill" objectFit="cover" className="opacity-70" />
         </div>
         <div className="w-1/6 h-full relative">
-          <Image src="/image4.jpg" alt="Model 4" layout="fill" objectFit="cover" className="opacity-70" />
+          <Image src="/images/hero4.webp" alt="Model 4" layout="fill" objectFit="cover" className="opacity-70" />
         </div>
         <div className="w-1/6 h-full relative">
-          <Image src="/image5.jpg" alt="Model 5" layout="fill" objectFit="cover" className="opacity-70" />
+          <Image src="/images/hero5.webp" alt="Model 5" layout="fill" objectFit="cover" className="opacity-70" />
         </div>
         <div className="w-1/6 h-full relative">
-          <Image src="/image6.jpg" alt="Model 6" layout="fill" objectFit="cover" className="opacity-70" />
+          <Image src="/images/hero6.webp" alt="Model 6" layout="fill" objectFit="cover" className="opacity-70" />
         </div>
       </div>
       

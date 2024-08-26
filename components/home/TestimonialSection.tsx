@@ -9,7 +9,7 @@ const TestimonialSection: React.FC = () => {
 
                 <div className="flex flex-col items-center">
                     <img 
-                        src="/path-to-your-image.jpg" 
+                        src="/images/monial1.webp" 
                         alt="Client photo" 
                         className="w-24 h-24 rounded-full mb-4"
                     />
