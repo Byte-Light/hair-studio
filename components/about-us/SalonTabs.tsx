@@ -1,4 +1,3 @@
-// components/SalonTabs.tsx
 "use client"
 import React, { useState } from 'react';
 
@@ -56,13 +55,13 @@ const SalonTabs: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   return (
-    <div className="flex flex-col md:flex-row items-start">
-      <div className="flex flex-row md:flex-col bg-gray-100">
+    <div className="flex flex-col">
+      <div className="flex flex-row bg-gray-100">
         {tabs.map((tab, index) => (
           <div
             key={index}
-            className={`p-4 cursor-pointer ${selectedTab === index ? 'bg-white' : 'bg-gray-200'} hover:bg-white`}
-            onMouseEnter={() => setSelectedTab(index)}
+            className={`p-4 cursor-pointer border-b-2 ${selectedTab === index ? 'border-gray-800 bg-white' : 'border-transparent bg-gray-200'} hover:bg-white`}
+            onClick={() => setSelectedTab(index)}
           >
             {tab.title}
           </div>
