@@ -3,12 +3,14 @@ import React from 'react';
 
 const Gallery: React.FC = () => {
   const images = [
-    '/images/img1.jpg',
-    '/images/img2.jpg',
-    '/images/img3.jpg',
-    '/images/img4.jpg',
-    '/images/img5.jpg',
-    '/images/img6.jpg',
+    '/images/gallery1.webp',
+    '/images/gallery2.webp',
+    '/images/gallery3.webp',
+    '/images/gallery4.webp',
+    '/images/gallery5.webp',
+    '/images/gallery6.webp',
+    '/images/gallery7.webp',
+    
   ];
 
   return (
