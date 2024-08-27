@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 
 const tabs = [
@@ -6,16 +6,11 @@ const tabs = [
     title: 'Our Skilled Team',
     content: (
       <>
-        <p>
-          At Next Salon, our skilled team of stylists, makeup artists, and nail
-          technicians are trained in the latest techniques and are dedicated to
-          providing you with the highest level of service and attention to detail.
+        <p className="text-gray-700 mb-4">
+          At Next Salon, our skilled team of stylists, makeup artists, and nail technicians are trained in the latest techniques, dedicated to providing the highest level of service and attention to detail.
         </p>
-        <p>
-          We believe that client satisfaction is the key to our success, which is why we always
-          strive to go above and beyond for each and every one of our clients. Our team members
-          are passionate about their craft and are constantly working to improve their skills
-          and knowledge to ensure that we provide the best service to our clients.
+        <p className="text-gray-700">
+          We believe client satisfaction is key, which is why we strive to exceed expectations for every client. Our passionate team continually improves their skills to ensure the best service.
         </p>
       </>
     ),
@@ -24,12 +19,11 @@ const tabs = [
     title: 'A Welcoming Atmosphere',
     content: (
       <>
-        <p>
-          We pride ourselves on providing a welcoming and professional atmosphere at Next Salon.
+        <p className="text-gray-700 mb-4">
+          We pride ourselves on offering a welcoming, professional atmosphere at Next Salon.
         </p>
-        <p>
-          Our team is dedicated to making sure that each and every client leaves feeling and looking
-          their best.
+        <p className="text-gray-700">
+          Our team is dedicated to ensuring that every client leaves feeling and looking their best.
         </p>
       </>
     ),
@@ -38,13 +32,11 @@ const tabs = [
     title: 'Our Goal',
     content: (
       <>
-        <p>
-          Whether you are looking for a classic cut, a modern style, or a complete makeover, our team
-          is here to help you achieve your desired look.
+        <p className="text-gray-700 mb-4">
+          Whether you're seeking a classic cut, a modern style, or a complete makeover, our team is here to help you achieve your desired look.
         </p>
-        <p>
-          We are committed to making sure that you leave the salon feeling confident and satisfied with
-          your look.
+        <p className="text-gray-700">
+          We are committed to ensuring you leave the salon feeling confident and satisfied with your new look.
         </p>
       </>
     ),
@@ -55,19 +47,19 @@ const SalonTabs: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-row bg-gray-100">
+    <div className="max-w-4xl mx-auto pt-20"> {/* Added pt-20 for padding top */}
+      <div className="flex flex-row border-b border-gray-200">
         {tabs.map((tab, index) => (
           <div
             key={index}
-            className={`p-4 cursor-pointer border-b-2 ${selectedTab === index ? 'border-gray-800 bg-white' : 'border-transparent bg-gray-200'} hover:bg-white`}
+            className={`flex-1 text-center py-4 cursor-pointer transition-all duration-300 ${selectedTab === index ? 'border-b-4 border-transparent bg-gradient-to-r from-blue-500 via-purple-600 to-gray-500 text-white' : 'border-b-4 border-transparent text-gray-500 hover:text-black'}`}
             onClick={() => setSelectedTab(index)}
           >
-            {tab.title}
+            <span className="text-lg font-medium">{tab.title}</span>
           </div>
         ))}
       </div>
-      <div className="p-6 bg-white w-full border border-gray-200">
+      <div className="p-8 bg-white shadow-lg rounded-b-lg transition-all duration-300">
         {tabs[selectedTab].content}
       </div>
     </div>

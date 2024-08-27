@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiScissors } from 'react-icons/fi'; // Importing icons from react-icons library
+import { FiScissors } from 'react-icons/fi';
 import { FaRegSmile } from 'react-icons/fa';
 
 const ServicesSection: React.FC = () => {
@@ -27,20 +27,25 @@ const ServicesSection: React.FC = () => {
     ];
 
     return (
-        <div className="bg-gray-100 py-12">
-            <div className="max-w-7xl mx-auto px-4">
-                <h2 className="text-center text-3xl font-bold mb-8">Our Services</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-gradient-to-b from-gray-800 to-black py-16">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                <h2 className="text-center text-4xl font-extrabold text-white mb-12 tracking-wide">Our Services</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {services.map((service, index) => (
-                        <div key={index} className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
-                            <div className="text-4xl mb-4">{service.icon}</div>
-                            <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                            <p className="text-gray-600">{service.description}</p>
+                        <div
+                            key={index}
+                            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-8 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 text-center flex flex-col items-center text-white"
+                        >
+                            <div className="text-5xl mb-6">{service.icon}</div>
+                            <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
+                            <p className="text-lg opacity-90">{service.description}</p>
                         </div>
                     ))}
                 </div>
-                <div className="flex justify-center mt-8">
-                    <button className="bg-black text-white px-6 py-2 rounded-lg shadow-md">Book Now</button>
+                <div className="flex justify-center mt-12">
+                    <button className="bg-gradient-to-r from-teal-400 to-cyan-500 text-white px-8 py-3 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300">
+                        Book Now
+                    </button>
                 </div>
             </div>
         </div>

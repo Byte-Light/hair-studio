@@ -1,4 +1,4 @@
-import Footer from "@/components/home/Footer";
+
 import Hero from "@/components/home/Hero";
 import ServicesSection from "@/components/home/ServicesSection";
 import TestimonialSection from "@/components/home/TestimonialSection";
@@ -9,7 +9,6 @@ export default function Home() {
       <Hero />
       <ServicesSection />
       <TestimonialSection />
-      <Footer />
    </main>
   );
 }
