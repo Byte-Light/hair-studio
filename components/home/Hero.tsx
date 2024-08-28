@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Hero: React.FC = () => {
   return (
@@ -35,7 +36,7 @@ const Hero: React.FC = () => {
           Elevate your beauty to the next level.
         </p>
         <button className="mt-8 px-8 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 text-black rounded-full flex items-center justify-center space-x-3 shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-          <span>Book Appointment</span>
+          <Link href="/book-appointment"><span>Book Appointment</span></Link>
           <span role="img" aria-label="Calendar">📅</span>
         </button>
       </div>
