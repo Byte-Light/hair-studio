@@ -1,5 +1,22 @@
-"use client"
+"use client";
 import { useState } from "react";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { Toaster, toast } from "react-hot-toast";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDKBNYbYN3DYiDCQP8P2N9AbMBPv1XT9nU",
+  authDomain: "hair-studio-8df6a.firebaseapp.com",
+  projectId: "hair-studio-8df6a",
+  storageBucket: "hair-studio-8df6a.appspot.com",
+  messagingSenderId: "1030034527743",
+  appId: "1:1030034527743:web:4c183bdc1a8bbea85d83ca"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const BookAppointment = () => {
   const [formData, setFormData] = useState({
@@ -15,13 +32,29 @@ const BookAppointment = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission to Firebase here
+
+    try {
+      const docRef = await addDoc(collection(db, "appointments"), formData);
+      toast.success("Appointment booked successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        date: "",
+        time: "",
+        squad: "",
+      });
+    } catch (error) {
+      toast.error("Failed to book appointment. Please try again.");
+      console.error("Error adding document: ", error);
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-6">
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Book an Appointment</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
