@@ -1,21 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-
-// Firebase configuration (use the same config as in your BookAppointment component)
-const firebaseConfig = {
-  apiKey: "AIzaSyDKBNYbYN3DYiDCQP8P2N9AbMBPv1XT9nU",
-  authDomain: "hair-studio-8df6a.firebaseapp.com",
-  projectId: "hair-studio-8df6a",
-  storageBucket: "hair-studio-8df6a.appspot.com",
-  messagingSenderId: "1030034527743",
-  appId: "1:1030034527743:web:4c183bdc1a8bbea85d83ca"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase"; // Adjust the import path according to your project structure
 
 interface Appointment {
   id: string;
