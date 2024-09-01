@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase'; // Import Firebase storage
 import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import storage functions
 import SquadList from './SquadList';
 import { Toaster, toast } from 'react-hot-toast';
 import Sidebar from './Sidebar'; // Import Sidebar component
@@ -12,12 +13,14 @@ interface SquadMember {
   id: string;
   name: string;
   title: string;
+  imageUrl?: string; // Optional imageUrl field
 }
 
 const SquadComponent = () => {
   const [squad, setSquad] = useState<SquadMember[]>([]);
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
+  const [image, setImage] = useState<File | null>(null); // State to hold the selected image
   const [activeTab, setActiveTab] = useState('Settings'); // Default tab
 
   useEffect(() => {
@@ -35,12 +38,22 @@ const SquadComponent = () => {
 
   const handleAddSquad = async () => {
     if (name && title) {
-      const newMember = { name, title };
+      let imageUrl = '';
+
+      if (image) {
+        // Upload image to Firebase Storage
+        const storageRef = ref(storage, `squad-images/${image.name}`);
+        await uploadBytes(storageRef, image);
+        imageUrl = await getDownloadURL(storageRef);
+      }
+
+      const newMember = { name, title, imageUrl };
       try {
         const docRef = await addDoc(collection(db, 'squads'), newMember);
         setSquad([...squad, { id: docRef.id, ...newMember }]);
         setName('');
         setTitle('');
+        setImage(null); // Clear the image input
         toast.success('Squad member added successfully!');
       } catch (error) {
         toast.error('Failed to add squad member. Please try again.');
@@ -84,6 +97,12 @@ const SquadComponent = () => {
                 placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>

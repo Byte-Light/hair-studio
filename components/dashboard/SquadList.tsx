@@ -1,7 +1,8 @@
 "use client";
 import { useState } from 'react';
 import { db } from '../../firebase';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore';
+import { getStorage, ref, deleteObject } from 'firebase/storage'; // Import Firebase Storage functions
 import toast from 'react-hot-toast';
 
 // Define SquadMember type
@@ -9,6 +10,7 @@ interface SquadMember {
   id: string;
   name: string;
   title: string;
+  imageUrl?: string; // Optional imageUrl field
 }
 
 interface SquadListProps {
@@ -23,6 +25,18 @@ const SquadList: React.FC<SquadListProps> = ({ squad, onDelete }) => {
 
   const handleDelete = async (id: string) => {
     try {
+      // Retrieve the squad member document to get the imageUrl
+      const memberDoc = await getDoc(doc(db, 'squads', id));
+      const memberData = memberDoc.data();
+
+      if (memberData?.imageUrl) {
+        // Delete the image from Firebase Storage
+        const storage = getStorage();
+        const imageRef = ref(storage, memberData.imageUrl);
+        await deleteObject(imageRef);
+      }
+
+      // Delete the document from Firestore
       await deleteDoc(doc(db, 'squads', id));
       onDelete(id);
       toast.success('Squad member deleted successfully!');
@@ -90,9 +104,18 @@ const SquadList: React.FC<SquadListProps> = ({ squad, onDelete }) => {
             </div>
           ) : (
             <>
-              <div>
-                <h3 className="text-lg font-bold">{member.name}</h3>
-                <p className="text-sm">{member.title}</p>
+              <div className="flex items-center space-x-4">
+                {member.imageUrl && (
+                  <img
+                    src={member.imageUrl}
+                    alt={member.name}
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                )}
+                <div>
+                  <h3 className="text-lg font-bold">{member.name}</h3>
+                  <p className="text-sm">{member.title}</p>
+                </div>
               </div>
               <div className="flex space-x-4">
                 <button
