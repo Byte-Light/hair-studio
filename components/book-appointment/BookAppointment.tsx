@@ -1,8 +1,14 @@
 "use client";
-import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { Toaster, toast } from "react-hot-toast";
 import { db } from "../../firebase"; // Adjust the import path according to your project structure
+
+interface SquadMember {
+  id: string;
+  name: string;
+  imageUrl?: string;
+}
 
 const BookAppointment = () => {
   const [formData, setFormData] = useState({
@@ -13,16 +19,43 @@ const BookAppointment = () => {
     time: "",
     squad: "",
   });
+  const [squadMembers, setSquadMembers] = useState<SquadMember[]>([]);
+  const [selectedSquad, setSelectedSquad] = useState<SquadMember | null>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    // Fetch squad members from Firestore
+    const fetchSquadMembers = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "squads"));
+        const members = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as SquadMember[];
+        setSquadMembers(members);
+      } catch (error) {
+        console.error("Error fetching squad members: ", error);
+      }
+    };
+
+    fetchSquadMembers();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSquadSelect = (member: SquadMember) => {
+    setSelectedSquad(member);
+    setFormData({ ...formData, squad: member.id });
+    setDropdownOpen(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const docRef = await addDoc(collection(db, "appointments"), formData);
+      await addDoc(collection(db, "appointments"), formData);
       toast.success("Appointment booked successfully!");
       setFormData({
         name: "",
@@ -32,6 +65,7 @@ const BookAppointment = () => {
         time: "",
         squad: "",
       });
+      setSelectedSquad(null);
     } catch (error) {
       toast.error("Failed to book appointment. Please try again.");
       console.error("Error adding document: ", error);
@@ -111,18 +145,53 @@ const BookAppointment = () => {
               className="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
-          <div>
+          <div className="relative">
             <label htmlFor="squad" className="block text-sm font-medium text-gray-700">
-              Squad
+              Squad*
             </label>
-            <input
-              type="text"
-              name="squad"
-              id="squad"
-              value={formData.squad}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-            />
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-left"
+              >
+                {selectedSquad ? (
+                  <div className="flex items-center space-x-2">
+                    {selectedSquad.imageUrl && (
+                      <img
+                        src={selectedSquad.imageUrl}
+                        alt={selectedSquad.name}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    )}
+                    <span>{selectedSquad.name}</span>
+                  </div>
+                ) : (
+                  "Select a squad member"
+                )}
+              </button>
+              {dropdownOpen && (
+                <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-60 overflow-y-auto">
+                  {squadMembers.map((member) => (
+                    <button
+                      key={member.id}
+                      type="button"
+                      onClick={() => handleSquadSelect(member)}
+                      className="w-full px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+                    >
+                      {member.imageUrl && (
+                        <img
+                          src={member.imageUrl}
+                          alt={member.name}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                      )}
+                      <span>{member.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           <div>
             <button
