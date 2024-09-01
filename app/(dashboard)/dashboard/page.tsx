@@ -1,10 +1,10 @@
-import Dashboard from '@/components/dashboard/Dashboard';
+import SquadComponent from '@/components/dashboard/SquadComponent';
 import React from 'react';
 
 const page = () => {
     return (
-        <div>
-            <Dashboard />
+        <div className='mt-12'>
+            <SquadComponent />
         </div>
     );
 };
